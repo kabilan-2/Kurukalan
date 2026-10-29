@@ -1,0 +1,38 @@
+# Free web compute + externally hosted Supabase database.
+# Account connection and secret values are required; nothing is deployed by this file alone.
+services:
+  - type: web
+    name: kurukalan
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    autoDeployTrigger: 'off'
+    healthCheckPath: /api/me
+    envVars:
+      - key: NODE_VERSION
+        value: 24
+      - key: HOST
+        value: 0.0.0.0
+      - key: COOKIE_SECURE
+        value: '1'
+      - key: REQUIRE_CLOUD_DATABASE
+        value: '1'
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_CA_CERT
+        sync: false
+      - key: ADMIN_ID
+        value: admin
+      - key: ADMIN_PASS
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: OTP_SECRET
+        generateValue: true
+      - key: SUPPORT_EMAIL
+        sync: false
+      - key: SUPPORT_MOBILE
+        sync: false

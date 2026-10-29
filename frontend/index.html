@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kurukalan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="connectionNotice" class="notice" role="status" hidden></div>
+<noscript><p class="notice">Enable JavaScript, then run npm start and open http://localhost:3000.</p></noscript>
+
+<!-- ===================== NAVBAR ===================== -->
+<header>
+  <div class="nav">
+    <button class="brand" onclick="go('home')"><span class="logo" aria-label="Kurukalan"><img src="assets/logo.png" alt="Kurukalan logo"></span><span data-i18n="brand">Kurukalan</span></button>
+    <nav class="menu" id="menu" aria-label="Main navigation">
+      <button data-page="home" data-i18n="nav_home">Home</button>
+      <button data-page="booking"     data-i18n="nav_booking">Booking</button>
+      <button data-page="centers"     data-i18n="nav_centers">Centers</button>
+      <button data-page="information" data-i18n="nav_info">Information</button>
+      <button data-page="contact"     data-i18n="nav_contact">Contact</button>
+    </nav>
+    <div class="nav-right">
+      <!-- Translate button: right corner of the menu -->
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()" title="Translate">தமிழ்</button>
+      <!-- Login / sign-in logo for user and admin -->
+      <button class="user-btn" id="userBtn" onclick="onUserBtn()" aria-label="Login">
+        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v2h16v-2c0-2.8-3.6-5-8-5z"/></svg>
+        <span class="uname" id="uname" data-i18n="login">Login</span>
+      </button>
+      <button class="burger" onclick="document.getElementById('menu').classList.toggle('open')"></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ===================== HOME ===================== -->
+<section class="page show" id="page-home">
+  <div class="hero2">
+    <div class="scene" data-scene="hero"></div>
+    <div class="hero-overlay"></div>
+    <div class="wrap hero-inner">
+      <span class="pill" data-i18n="hero_badge"> Smart paddy storage for Tamil Nadu</span>
+      <h1 data-i18n="hero_title">Store your paddy safely. Book your slot online.</h1>
+      <p data-i18n="hero_text">Reserve a secure storage container for your paddy harvest near your farm. Enter your land size, and we estimate your yield and the containers you need — in seconds.</p>
+      <div class="cta">
+        <button class="btn gold lg" onclick="go('booking')" data-i18n="book_now">Book a Slot</button>
+        <button class="btn glass lg" onclick="go('centers')" data-i18n="find_centers">Find Centers</button>
+      </div>
+      <div class="stats">
+        <div class="glass-card"><b>2,428 kg</b><span data-i18n="st1">Paddy from 1 acre</span></div>
+        <div class="glass-card"><b>2,500 kg</b><span data-i18n="st2">Per container</span></div>
+        <div class="glass-card"><b>8</b><span data-i18n="st3">Land units</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Colourful image tiles: click to open other pages -->
+  <div class="wrap">
+    <h2 class="section-title reveal" data-i18n="ex_title">Explore</h2>
+    <p class="sub reveal" data-i18n="ex_sub">Tap a picture to go to that page.</p>
+    <div class="bento reveal">
+      <a href="#" class="tile t7" onclick="go('booking');return false"><div class="scene" data-scene="green"></div>
+        <div class="tile-cap"><h3 data-i18n="tl1_t">Book your slot</h3><p data-i18n="tl1_d">Reserve a container in a few taps.</p><span class="arrow">→</span></div></a>
+      <a href="#" class="tile t5" onclick="go('centers');return false"><div class="scene" data-scene="gold"></div>
+        <div class="tile-cap"><h3 data-i18n="tl2_t">Centers near you</h3><p data-i18n="tl2_d">See franchise centers on the map.</p><span class="arrow">→</span></div></a>
+      <a href="#" class="tile t5" onclick="go('information');return false"><div class="scene" data-scene="store"></div>
+        <div class="tile-cap"><h3 data-i18n="tl3_t">How storage works</h3><p data-i18n="tl3_d">Estimates, units and storage tips.</p><span class="arrow">→</span></div></a>
+      <a href="#" class="tile t7" onclick="go('about');return false"><div class="scene" data-scene="sunset"></div>
+        <div class="tile-cap"><h3 data-i18n="tl4_t">Our story</h3><p data-i18n="tl4_d">Meet the people behind the project.</p><span class="arrow">→</span></div></a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h2 class="section-title reveal" data-i18n="what_title">What we use to protect your paddy</h2>
+    <p class="sub reveal" data-i18n="what_sub">Simple, proven tools that keep your harvest dry, clean and ready to sell.</p>
+    <div class="grid g3">
+      <div class="card feature reveal"><div class="ico"></div><h3 data-i18n="f1_t">Storage Containers</h3><p data-i18n="f1_d">Sealed containers.</p></div>
+      <div class="card feature reveal"><div class="ico"></div><h3 data-i18n="f2_t">Moisture Control</h3><p data-i18n="f2_d">Dry storage.</p></div>
+      <div class="card feature reveal"><div class="ico"></div><h3 data-i18n="f3_t">Auto Calculator</h3><p data-i18n="f3_d">Auto calc.</p></div>
+      <div class="card feature reveal"><div class="ico"></div><h3 data-i18n="f4_t">Franchise Centers Map</h3><p data-i18n="f4_d">Map.</p></div>
+      <div class="card feature reveal"><div class="ico"></div><h3 data-i18n="f5_t">Photo Verification</h3><p data-i18n="f5_d">Photo.</p></div>
+      <div class="card feature reveal"><div class="ico"></div><h3 data-i18n="f6_t">Mobile Login</h3><p data-i18n="f6_d">Login.</p></div>
+    </div>
+  </div>
+
+  <!-- CEO spotlight -> About page -->
+  <div class="band"><div class="wrap">
+    <div class="ceo-spot reveal" onclick="go('about')" role="link" tabindex="0">
+      <div class="ceo-photo" data-avatar="ceo"></div>
+      <div>
+        <span class="pill dark" data-i18n="ceo_badge">Leadership</span>
+        <h2 id="homeCeoName"></h2>
+        <p class="role" data-i18n="ceo_role">Founder &amp; CEO</p>
+        <blockquote data-i18n="ceo_quote">"Every farmer deserves to keep the harvest they worked so hard for. We built this project so that no grain is lost after the harvest."</blockquote>
+        <button class="btn" onclick="event.stopPropagation();go('about')" data-i18n="meet_ceo">Meet our CEO →</button>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- Crew preview -> Crew page -->
+  <div class="wrap">
+    <div class="between">
+      <div><h2 class="section-title reveal" data-i18n="crew_title">Meet the Crew</h2>
+      <p class="sub reveal" data-i18n="crew_sub">The team that keeps your paddy safe.</p></div>
+      <button class="btn ghost" onclick="go('crew')" data-i18n="view_crew">View full team →</button>
+    </div>
+    <div class="crew-strip reveal" id="crewStrip"></div>
+  </div>
+
+  <div class="band"><div class="wrap">
+    <h2 class="section-title reveal" data-i18n="how_title">How it works</h2>
+    <div class="grid g3 steps" style="margin-top:26px">
+      <div class="card reveal"><h3 data-i18n="s1_t">Login</h3><p data-i18n="s1_d">Sign in.</p></div>
+      <div class="card reveal"><h3 data-i18n="s2_t">Fill the booking form</h3><p data-i18n="s2_d">Details.</p></div>
+      <div class="card reveal"><h3 data-i18n="s3_t">Get confirmation</h3><p data-i18n="s3_d">Confirm.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===================== BOOKING ===================== -->
+<section class="page" id="page-booking"><div class="wrap">
+  <h2 class="section-title" data-i18n="bk_title">Book a Storage Slot</h2>
+  <p class="sub" data-i18n="bk_sub">Fill in the details below to reserve your container.</p>
+  <div class="grid g2" style="align-items:start">
+    <form class="card" id="bookingForm" autocomplete="off">
+      <div class="notice" id="loginNotice" data-i18n="bk_login_notice">Please sign in with your email address to submit a booking.</div>
+      <label data-i18n="bk_address">Address</label>
+      <textarea id="bAddress" rows="3" required data-i18n-ph="ph_address" placeholder="Village, taluk, district"></textarea>
+      <label data-i18n="bk_photo">Photo</label>
+      <input type="file" id="bPhoto" accept="image/*" required>
+      <img id="photoPrev" class="photo-prev" alt="preview">
+      <div class="row">
+        <div>
+          <label data-i18n="bk_unit">Select Land Measurement Unit</label>
+          <select id="bUnit"></select>
+        </div>
+        <div>
+          <label data-i18n="bk_area">Land Area</label>
+          <input id="bArea" type="number" min="0" step="any" value="1" required>
+        </div>
+      </div>
+      <div class="estimate" id="estimate"></div>
+      <div class="row">
+        <div><label for="bContainer" data-i18n="container_count">Containers required</label>
+          <select id="bContainer" required aria-label="Containers required"></select></div>
+        <div><label for="bCapacity" data-i18n="container_type">Container type</label>
+          <select id="bCapacity" required><option value="2500" data-i18n="container_50">50 sacks — 2,500 kg</option><option value="5000" data-i18n="container_100">100 sacks — 5,000 kg</option></select></div>
+      </div>
+      <p class="sub" data-i18n="container_hint">Auto-filled from your land area. You can change the count and capacity.</p>
+      <button type="button" class="btn ghost small" id="resetContainers" data-i18n="reset_containers">Use automatic selection</button>
+      <div class="row">
+        <div>
+          <label data-i18n="bk_date">Date storage is needed</label>
+          <input id="bDate" type="date" required>
+        </div>
+      </div>
+      <div class="msg" id="bMsg"></div>
+      <p><button class="btn gold" type="submit" data-i18n="bk_submit">Submit Booking</button></p>
+    </form>
+
+    <div class="card">
+      <h3 data-i18n="my_bookings">My Bookings</h3>
+      <div id="myBookings"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ===================== CENTERS ===================== -->
+<section class="page" id="page-centers"><div class="wrap">
+  <h2 class="section-title" data-i18n="ct_title">Agricultural Centers in Tamil Nadu</h2>
+  <p class="sub" data-i18n="ct_sub">Tap a marker to see the center's contact person and phone number.</p>
+  <div class="legend">
+    <span><span class="dot" style="background:#2f6b3a"></span><span data-i18n="lg_on">Franchise active</span></span>
+    <span><span class="dot" style="background:#9a9a9a"></span><span data-i18n="lg_off">Franchise not yet approved</span></span>
+  </div>
+  <div class="map-layout">
+    <div id="map"></div>
+    <div class="center-list" id="centerList"></div>
+  </div>
+
+  <!-- Admin-only: add centers + give franchise access -->
+  <div class="admin-panel" id="adminCenterPanel" style="display:none">
+    <h3 data-i18n="ad_add_center">Admin: Add a Center</h3>
+    <p class="sub" data-i18n="ad_add_hint">Click on the map to choose the location, then fill in the details.</p>
+    <form id="centerForm" class="grid g3">
+      <div><label data-i18n="c_name">Center Name</label><input id="cName" required></div>
+      <div><label data-i18n="c_name_ta">Center Name (Tamil, optional)</label><input id="cNameTa"></div>
+      <div><label data-i18n="c_district">District</label><input id="cDistrict" required></div>
+      <div><label data-i18n="c_person">Contact Person</label><input id="cPerson" required></div>
+      <div><label data-i18n="c_phone">Contact Number</label><input id="cPhone" required></div>
+      <div><label data-i18n="c_latlng">Location (lat, lng)</label><input id="cLatLng" readonly data-i18n-ph="c_click_map" placeholder="Click on the map"></div>
+      <div style="display:flex;align-items:end;gap:10px;flex-wrap:wrap">
+        <label style="display:flex;gap:8px;align-items:center;margin:0"><input type="checkbox" id="cFranchise" style="width:auto" checked><span data-i18n="c_grant">Grant franchise access</span></label>
+        <button class="btn" type="submit" data-i18n="c_save">Add Center</button>
+      </div>
+    </form>
+    <div class="msg" id="cMsg"></div>
+  </div>
+</div></section>
+
+<!-- ===================== INFORMATION ===================== -->
+<section class="page" id="page-information"><div class="wrap">
+  <h2 class="section-title" data-i18n="in_title">Information</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h3 data-i18n="in_calc_t">How the estimate is calculated</h3>
+      <p data-i18n="in_calc_d">We assume an average yield of 6,000 kg of paddy per hectare (about 2,428 kg per acre). Your land is converted to hectares, multiplied by the yield, and divided by the container capacity of 2,500 kg. The result is rounded up to whole containers.</p>
+      <p class="notice" data-i18n="in_calc_n">This is only an estimate. Actual yield depends on the variety, season and farming practice.</p>
+    </div>
+    <div class="card">
+      <h3 data-i18n="in_units_t">Land unit conversions</h3>
+      <div class="tbl-wrap"><table id="unitTable"></table></div>
+    </div>
+    <div class="card">
+      <h3 data-i18n="in_tips_t">Tips for storing paddy</h3>
+      <ul>
+        <li data-i18n="tip1">Dry the paddy well before storing it.</li>
+        <li data-i18n="tip2">Clean the container and remove old grain and husk.</li>
+        <li data-i18n="tip3">Keep containers off wet ground and away from standing water.</li>
+        <li data-i18n="tip4">Check the grain regularly for insects, smell and moisture.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 data-i18n="in_fr_t">About franchise centers</h3>
+      <p data-i18n="in_fr_d">Centers are local agricultural storage points run by franchise partners. The admin team reviews each center and gives franchise access before it is shown as active on the map.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ===================== CONTACT / SUPPORT ===================== -->
+<section class="page" id="page-contact"><div class="wrap">
+  <h2 class="section-title" data-i18n="co_title">Contact &amp; Customer Support</h2>
+  <p class="sub" data-i18n="co_sub">We are here to help you with bookings and storage questions.</p>
+  <div class="grid g2" style="align-items:start">
+    <div class="card">
+      <h3 data-i18n="co_details">Support Details</h3>
+      <p><span data-i18n="co_phone">Helpline</span>: <a id="supportPhone" hidden></a><span id="supportPhonePending" data-i18n="contact_pending">To be provided</span></p>
+      <p>Email: <a id="supportEmail" hidden></a><span id="supportEmailPending" data-i18n="contact_pending">To be provided</span></p>
+      <p><a id="supportWhatsApp" class="btn ghost" hidden target="_blank" rel="noopener noreferrer" data-i18n="support_whatsapp">Message on WhatsApp</a></p>
+      <p> <span data-i18n="co_hours">Mon–Sat, 9:00 AM – 6:00 PM</span></p>
+      <p class="notice" data-i18n="co_note">Customer support features (live chat, ticket tracking, call-back) will be added soon.</p>
+    </div>
+    <form class="card" id="supportForm">
+      <h3 data-i18n="co_form">Send us a message</h3>
+      <label data-i18n="bk_name">Name</label><input id="sName" required>
+      <label data-i18n="bk_mobile">Mobile Number</label><input id="sMobile" required inputmode="numeric" maxlength="10">
+      <label data-i18n="co_msg">Message</label><textarea id="sText" rows="4" required></textarea>
+      <div class="msg" id="sMsg"></div>
+      <p><button class="btn" type="submit" data-i18n="co_send">Send</button></p>
+    </form>
+  </div>
+</div></section>
+
+<!-- ===================== ABOUT (CEO) ===================== -->
+<section class="page" id="page-about">
+  <div class="page-hero"><div class="scene" data-scene="sunset"></div><div class="hero-overlay"></div>
+    <div class="wrap"><span class="pill" data-i18n="ab_badge">About us</span><h1 data-i18n="ab_title">The people behind the harvest</h1></div></div>
+  <div class="wrap">
+    <div class="ceo-big card">
+      <div class="ceo-photo big" data-avatar="ceo"></div>
+      <div>
+        <span class="pill dark" data-i18n="ceo_badge">Leadership</span>
+        <h2 id="aboutCeoName"></h2>
+        <p class="role" data-i18n="ceo_role">Founder &amp; CEO</p>
+        <p data-i18n="ceo_bio">With a deep respect for farming families, our CEO started this project to cut post-harvest paddy losses by bringing safe storage closer to every field in Tamil Nadu. (Sample text — replace with your CEO's real story.)</p>
+        <blockquote data-i18n="ceo_quote">"Every farmer deserves to keep the harvest they worked so hard for. We built this project so that no grain is lost after the harvest."</blockquote>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card reveal"><div class="ico big"></div><h3 data-i18n="vision_t">Our Vision</h3><p data-i18n="vision_d">A Tamil Nadu where no paddy is wasted after harvest.</p></div>
+      <div class="card reveal"><div class="ico big"></div><h3 data-i18n="mission_t">Our Mission</h3><p data-i18n="mission_d">Give every farmer simple online access to safe, nearby storage.</p></div>
+      <div class="card reveal"><div class="ico big"></div><h3 data-i18n="values_t">Our Values</h3><p data-i18n="values_d">Trust, transparency and respect for the farmer.</p></div>
+    </div>
+    <p style="text-align:center;margin-top:26px"><button class="btn" onclick="go('crew')" data-i18n="view_crew">View full team →</button></p>
+  </div>
+</section>
+
+<!-- ===================== CREW ===================== -->
+<section class="page" id="page-crew">
+  <div class="page-hero"><div class="scene" data-scene="gold"></div><div class="hero-overlay"></div>
+    <div class="wrap"><span class="pill" data-i18n="crew_badge">Our team</span><h1 data-i18n="crew_title">Meet the Crew</h1></div></div>
+  <div class="wrap">
+    <div class="grid g3" id="crewGrid"></div>
+    <div class="card cta-card reveal">
+      <h3 data-i18n="crew_cta">Have a question? Talk to our team.</h3>
+      <button class="btn gold" onclick="go('contact')" data-i18n="nav_contact">Contact</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ADMIN DASHBOARD ===================== -->
+<section class="page" id="page-admin"><div class="wrap">
+  <h2 class="section-title" data-i18n="ad_title">Admin Dashboard</h2>
+  <p class="notice" id="adminSystemStatus" aria-live="polite"></p>
+  <button type="button" class="btn ghost small" id="refreshAdmin">Refresh bookings and database</button>
+  <div class="admin-counts" id="adSummary" aria-live="polite"></div>
+  <div class="card" style="margin-bottom:18px">
+    <h3 data-i18n="ad_bookings">All Bookings</h3>
+    <div class="tbl-wrap" id="adBookings"></div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <h3 data-i18n="ad_centers">Centers &amp; Franchise Access</h3>
+    <div class="tbl-wrap" id="adCenters"></div>
+    <p><button class="btn small" onclick="go('centers')" data-i18n="ad_go_map">Add a new center on the map</button></p>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <h3 data-i18n="ad_users">Registered Users</h3>
+    <div class="tbl-wrap" id="adUsers"></div>
+  </div>
+  <div class="card">
+    <h3 data-i18n="ad_messages">Support Messages</h3>
+    <div class="tbl-wrap" id="adMessages"></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div><a onclick="go('about')" data-i18n="nav_about">About</a><a onclick="go('crew')" data-i18n="nav_team">Crew</a><a onclick="go('contact')" data-i18n="nav_contact">Contact</a></div><p style="margin:10px 0 0"><span data-i18n="footer">© Kurukalan</span></p></footer>
+
+<!-- ===================== LOGIN MODAL ===================== -->
+<div class="overlay" id="loginModal">
+  <div class="modal">
+    <button class="x" onclick="closeLogin()">×</button>
+    <h3 data-i18n="login">Login</h3>
+    <div class="tabs">
+      <button id="tabSignup" onclick="loginTab('signup')" data-i18n="new_user">New User / Sign Up</button>
+      <button id="tabUser" class="on" onclick="loginTab('user')" data-i18n="existing_user">Sign In</button>
+      <button id="tabAdmin" onclick="loginTab('admin')" data-i18n="tab_admin">Admin</button>
+    </div>
+    <form id="userLogin">
+      <div id="signupFields" hidden>
+      <label data-i18n="bk_name">Name</label>
+      <input id="lName" disabled maxlength="80" autocomplete="name">
+      <label for="lMobile" data-i18n="bk_mobile">Mobile Number</label>
+      <input id="lMobile" type="tel" disabled inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" autocomplete="tel-national" placeholder="10-digit mobile number">
+      </div>
+      <label for="lEmail" data-i18n="email_label">Email Address</label>
+      <input id="lEmail" type="email" required autocomplete="email" maxlength="254" placeholder="you@example.com">
+      <p><button type="button" class="btn ghost" id="sendOtp" data-i18n="send_otp">Send OTP</button></p>
+      <label for="lOtp" data-i18n="otp_label">Verification code</label>
+      <input id="lOtp" required inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" placeholder="Enter the email code">
+      <p><button class="btn" id="verifyOtp" data-i18n="verify_otp" style="width:100%">Verify &amp; sign in</button></p>
+    </form>
+    <form id="adminLogin" style="display:none">
+      <label data-i18n="adm_id">Admin ID</label>
+      <input id="aId" required autocomplete="username">
+      <label data-i18n="adm_pass">Password</label>
+      <input id="aPass" type="password" required autocomplete="current-password">
+      <p><button class="btn" style="width:100%" data-i18n="login">Login</button></p>
+    </form>
+    <div class="msg" id="lMsg"></div>
+  </div>
+</div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('show')"><img id="lightImg" alt=""></div>
+
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="js/translations.js"></script>
+<script src="js/api.js"></script>
+<script src="js/team.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
