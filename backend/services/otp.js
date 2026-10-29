@@ -19,7 +19,15 @@ async function send(email) {
       method:'POST', signal:AbortSignal.timeout(15000),
       headers:{'api-key':process.env.BREVO_API_KEY, 'Content-Type':'application/json', Accept:'application/json'},
       body:JSON.stringify({sender:{name:'Kurukalan', email:process.env.EMAIL_FROM}, to:[{email}],
-        subject:'Your Kurukalan sign-in code', textContent:`Your Kurukalan sign-in code is ${code}. It expires in 10 minutes. Do not share this code. If you did not request it, ignore this email.`})
+                subject:'Your Kurukalan sign-in code',
+        textContent:`Your Kurukalan sign-in code is ${code}.
+
+It expires in 10 minutes. Do not share this code.
+If you did not request it, ignore this email.
+
+Further updates will be provided by our technical team shortly.
+
+— Team Kurukalan`})
     });
   } catch { throw new HttpError(503, 'Email service unavailable. Please try again later.'); }
   const data = await response.json().catch(() => ({}));
