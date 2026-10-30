@@ -280,3 +280,39 @@ header{background:#fff;backdrop-filter:none}.nav{min-height:78px}.brand{font-siz
 .leaflet-control-layers input{display:inline-block;width:auto;margin:0 5px 0 0;padding:0;vertical-align:middle}
 
 [hidden]{display:none!important}
+.booking-editor {
+  width: min(540px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.booking-editor::backdrop {
+  background: rgba(20, 35, 24, 0.5);
+}
+
+.booking-editor label {
+  display: block;
+  margin: 12px 0;
+  font-weight: 600;
+}
+
+.booking-editor label input,
+.booking-editor label select {
+  margin-top: 5px;
+}
+
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.editor-error {
+  color: #a12121;
+}
