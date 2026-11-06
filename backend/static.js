@@ -2,7 +2,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {PUBLIC_DIR} = require('./config');
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.png': 'image/png',
-  '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
+  '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.woff2': 'font/woff2','.xml': 'application/xml',
+'.txt': 'text/plain; charset=utf-8'};
 function serveStatic(req, res, pathname) {
   let rel = decodeURIComponent(pathname); if (rel.endsWith('/')) rel += 'index.html';
   const file = path.normalize(path.join(PUBLIC_DIR, rel));
