@@ -11,9 +11,9 @@ const TEAM = {
   },
   "crew": [
     {
-      "name": "Jayaseelan S",
+      "name": "Kaviyarasan L",
       "nameTa": "",
-      "initials": "JS",
+      "initials": "KL",
       "role": "member",
       "photo": "",
       "colors": [
@@ -22,36 +22,14 @@ const TEAM = {
       ]
     },
     {
-      "name": "Infant Vishal S",
+      "name": "Dinesh Kumar S",
       "nameTa": "",
-      "initials": "IV",
+      "initials": "DS",
       "role": "member",
       "photo": "",
       "colors": [
         "#647d88",
         "#91a9b2"
-      ]
-    },
-    {
-      "name": "Barathi Mohan S",
-      "nameTa": "",
-      "initials": "BM",
-      "role": "member",
-      "photo": "",
-      "colors": [
-        "#867455",
-        "#b1a180"
-      ]
-    },
-    {
-      "name": "Vineesh S",
-      "nameTa": "",
-      "initials": "VS",
-      "role": "member",
-      "photo": "",
-      "colors": [
-        "#78758c",
-        "#a29eb3"
       ]
     }
   ]
